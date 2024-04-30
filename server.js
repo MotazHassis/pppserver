@@ -22,13 +22,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 require('./routes/chat.route')(app);
 const server =app.listen(port, () => console.log(`Listening on port: ${port}`) );
-const io = require('socket.io')(server);
+
+const io = require('socket.io')(server, { cors: {
+    origin: "https://pppserver.onrender.com", // This should be the URL of your client
+    methods: ["GET", "POST"],
+    credentials: false
+} });
 io.use((socket, next) => {
     // Setting the Access-Control-Allow-Origin header to '*'
     socket.handshake.headers.origin = '*';
     next();
 });
-
 io.on('connection', socket => {
     console.log('on-connection')
     app.set('socket', socket)
