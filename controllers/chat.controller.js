@@ -4,7 +4,7 @@ const { response } = require('express');//test
 
 module.exports.createWing = (request, response) => {
     const {right,left} = request.body;
-    console.log('motaz')
+    console.log('reach create method')
     Wing.create({
         right,left
     })
