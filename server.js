@@ -22,11 +22,8 @@ app.use(cookieParser());
 require('./routes/chat.route')(app);
 const server =app.listen(port, () => console.log(`Listening on port: ${port}`) );
 
-const io = require('socket.io')(server, { cors: {
-    origin: "https://pppfront.onrender.com/", // This should be the URL of your client
-    methods: ["GET", "POST",'PUT'],
-    credentials: true
-} });
+const io = require('socket.io')(server);
+io.origins('*:*');
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
