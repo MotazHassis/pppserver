@@ -3,7 +3,6 @@ const axios = require('axios');
 const ChatController = require('./controllers/chat.controller');
 const cors=require('cors');
 const { Socket } = require('socket.io');
-// const { Socket } = require('socket.io');
 const app=express();
 require('dotenv').config();
 require('./config/mongoose.config')
@@ -14,12 +13,10 @@ const corsOptions = {
     allowedHeaders: ['Content-Type', 'Authorization'] // Allow only specific headers
 };
 app.use(cors(corsOptions));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 require('./routes/chat.route')(app);
 const server =app.listen(port, () => console.log(`Listening on port: ${port}`) );
-
 const io = require('socket.io')(server);
 io.use((socket, next) => {
     // Setting the Access-Control-Allow-Origin header to '*'
