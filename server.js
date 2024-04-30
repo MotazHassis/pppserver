@@ -9,8 +9,13 @@ const app=express();
 require('dotenv').config();
 require('./config/mongoose.config')
 const port=process.env.PORT
+const corsOptions = {
+    origin: '*', // Allow from any origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow all HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'] // Allow only specific headers
+};
+app.use(cors(corsOptions));
 
-app.use(cors({credentials: true, origin: '*'}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -18,8 +23,8 @@ require('./routes/chat.route')(app);
 const server =app.listen(port, () => console.log(`Listening on port: ${port}`) );
 
 const io = require('socket.io')(server, { cors: {
-    origin: "*", // This should be the URL of your client
-    methods: ["GET", "POST"],
+    origin: "https://pppfront.onrender.com/", // This should be the URL of your client
+    methods: ["GET", "POST",'PUT'],
     credentials: true
 } });
 app.use(function (req, res, next) {
