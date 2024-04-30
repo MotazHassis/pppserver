@@ -28,14 +28,6 @@ io.use((socket, next) => {
     socket.handshake.headers.origin = '*';
     next();
 });
-app.use(function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With')
-    // attach socket io with each request, in order to use it in api routes
-    req.io = io;
-    next()
-})
 
 io.on('connection', socket => {
     console.log('on-connection')
