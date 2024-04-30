@@ -23,7 +23,11 @@ require('./routes/chat.route')(app);
 const server =app.listen(port, () => console.log(`Listening on port: ${port}`) );
 
 const io = require('socket.io')(server);
-io.origins('*:*');
+io.use((socket, next) => {
+    // Setting the Access-Control-Allow-Origin header to '*'
+    socket.handshake.headers.origin = '*';
+    next();
+});
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
