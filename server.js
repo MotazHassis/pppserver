@@ -12,6 +12,11 @@ const corsOptions = {
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow all HTTP methods
     allowedHeaders: ['Content-Type', 'Authorization'] // Allow only specific headers
 };
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://pppfront.onrender.com");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
