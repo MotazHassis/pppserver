@@ -1,6 +1,22 @@
 const { Wing } = require('../models/chat.model');
 const { response } = require('express');//test
 
+const readings={
+    'right':0,
+    'left':0,
+    
+}
+
+module.exports.updatereading = (req, response) =>{
+    const {right,left} = req.body
+    readings.left=left;
+    readings.right=right;
+    return response.json()
+}
+
+module.exports.getreadings = (req, response) =>{
+    return response.json(readings)
+}
 
 module.exports.createWing = (request, response) => {
     const {right,left} = request.body;
