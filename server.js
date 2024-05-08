@@ -1,5 +1,6 @@
 const express=require('express');
 const axios = require('axios');
+const WebSocket = require('ws');
 const ChatController = require('./controllers/chat.controller');
 const cors=require('cors');
 const { Socket } = require('socket.io');
@@ -22,12 +23,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 require('./routes/chat.route')(app);
 const server =app.listen(port, () => console.log(`Listening on port: ${port}`) );
-
+const wss = new WebSocket.Server({ server });
 const io = require('socket.io')(server, { cors: {
     origin: "https://pppserver.onrender.com", // This should be the URL of your client
     methods: ["GET", "POST"],
     credentials: false
 } });
+wss.on('connection', function connection(ws) {
+  console.log('A client connected');
+
+  ws.on('message', function incoming(message) {
+    console.log('Received message:', message);
+    // Handle received message
+  });
+
+  ws.on('close', function close() {
+    console.log('A client disconnected');
+  });
+});
+
 io.use((socket, next) => {
     // Setting the Access-Control-Allow-Origin header to '*'
     socket.handshake.headers.origin = '*';
