@@ -36,6 +36,13 @@ module.exports.updaterear = (req, response) =>{
     readings.rear=rear;
     return response.json()
 }
+module.exports.updatebalance = (req, response) =>{
+    const {left,right} = req.body
+    readings.left=left;
+    readings.right=right;
+    return response.json()
+}
+
 
 
 
