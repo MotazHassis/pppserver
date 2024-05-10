@@ -4,7 +4,7 @@ const { response } = require('express');//test
 const readings={
     'right':0,
     'left':0,
-    'speed':0,
+    'speed':1000,
     'rear':0,
     
 }
