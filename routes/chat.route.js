@@ -6,4 +6,6 @@ module.exports = function(app){
     app.put('/myupdate/readingsspeed', ChatController.updatespeed);
     app.put('/myupdate/readingsrear', ChatController.updaterear);
     app.put('/myupdate/readingsbalance', ChatController.updatebalance);
+    app.put('/myupdate/readingsvertical', ChatController.updatevertical);
+    
 }
