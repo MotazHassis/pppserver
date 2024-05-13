@@ -2,10 +2,11 @@ const { Wing } = require('../models/chat.model');
 const { response } = require('express');//test
 
 const readings={
-    'right':0,
-    'left':0,
+    'right':90,
+    'left':90,
     'speed':1000,
-    'rear':0,
+    'rear':60,
+    'vertical':90
     
 }
 
@@ -34,6 +35,11 @@ module.exports.updatespeed = (req, response) =>{
 module.exports.updaterear = (req, response) =>{
     const {rear} = req.body
     readings.rear=rear;
+    return response.json()
+}
+module.exports.updatevertical = (req, response) =>{
+    const {vertical} = req.body
+    readings.vertical=vertical;
     return response.json()
 }
 module.exports.updatebalance = (req, response) =>{
